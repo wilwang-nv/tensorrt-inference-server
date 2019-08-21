@@ -108,7 +108,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git
 # Check out stable commit on master until new release
 # to support cloud-based filesystems
 RUN git clone --recursive https://github.com/Microsoft/onnxruntime && \
-    (cd onnxruntime && git checkout 2f698bd54b713bb87dbd0bbb913e94bcf7fd480c)
+    (cd onnxruntime && git checkout 0951f53c801846735fed861081f19b37f9871e15)
 
 ENV PATH="/opt/cmake/bin:${PATH}"
 ARG SCRIPT_DIR=/workspace/onnxruntime/tools/ci_build/github/linux/docker/scripts
