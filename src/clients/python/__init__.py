@@ -834,9 +834,8 @@ class SharedMemoryControlContext:
             The unique shared memory region identifier.
         offset : int
             The offset from the start of the shared shared memory region.
-        input_values : void*
-            The pointer to the values in the numpy array to be copied into the
-            shared memory region.
+        input_values : np.array
+            The numpy array to be copied into the shared memory region.
 
         Raises
         ------
@@ -845,11 +844,11 @@ class SharedMemoryControlContext:
         """
 
         if not isinstance(input_values, (np.ndarray,)):
-            _raise_error("input values must be specified as a list of numpy arrays")
+            _raise_error("input values must be specified as a numpy array")
 
         input_values = np.ascontiguousarray(input_values)
         _raise_if_error(
-            c_void_p(_cshmwrap_set_shared_memory_region_data(shm_fd, offset,
+            c_void_p(_cshmwrap_set_shared_memory_region_data(shm_fd, c_uint64(offset),
                 c_uint64(input_values.size * input_values.itemsize),
                 input_values.ctypes.data_as(c_void_p))))
         return

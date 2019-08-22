@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     # Put input data values into shared memory
     shared_memory_ctx.set_shared_memory_region_data(shm_fd_ip, 0, input0_data)
-    shared_memory_ctx.set_shared_memory_region_data(shm_fd_ip, 0, input1_data)
+    shared_memory_ctx.set_shared_memory_region_data(shm_fd_ip, input_byte_size, input1_data)
 
     # Register Input shared memory with TRTIS
     shared_memory_ctx.register("input_data", "/input_simple", 0, input_byte_size * 2)
@@ -117,8 +117,8 @@ if __name__ == '__main__':
 
     # Read output from shared memory
     # [TODO] Fix segfault caused due to read and incorrect results
-    # output0_data = shared_memory_ctx.read_shared_memory_region_data(shm_fd_op, 0, output_byte_size, results['OUTPUT0'][0], results['OUTPUT0'][1], batch_size)
-    # print(output0_data)
+    output0_data = shared_memory_ctx.read_shared_memory_region_data(shm_fd_op, 0, output_byte_size, results['OUTPUT0'][0], results['OUTPUT0'][1], batch_size)
+    print(output0_data)
     # output1_data = shared_memory_ctx.read_shared_memory_region_data(shm_fd_op, output_byte_size, output_byte_size, results['OUTPUT1'][0], results['OUTPUT1'][1], batch_size)
     # print(output1_data)
 
